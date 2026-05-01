@@ -23,7 +23,7 @@ class Telephone {
     }
 
     notifyObservers = (number) => {
-        this.observer.forEach(observer => {
+        this.observers.forEach(observer => {
             observer.update(number)
         })
     }
@@ -38,11 +38,30 @@ class Telephone {
 
 }
 
+class IgnoreObserver {
+    update(number) {
+        console.log(number)
+    }
+}
+
+class DialPhoneObserver {
+    update(number) {
+        console.log(`Now Dialling ${number}`)
+    }
+}
+
+//create telephone
+const phone = new Telephone();
+phone.addPhoneNumber("123-456-7890");
+phone.addPhoneNumber("987-654-3210");
 
 
-const telephone = new Telephone();
-telephone.addPhoneNumber("123-456-7890");
-telephone.addPhoneNumber("987-654-3210");
-telephone.dialPhoneNumber("123-456-7890");
-telephone.removeNumber("123-456-7890");
-telephone.dialPhoneNumber("123-456-7890");
+//create observer1
+const observer1 = new IgnoreObserver();
+const observer2 = new DialPhoneObserver();
+//add observer to telephone
+phone.addObserver(observer1);
+phone.addObserver(observer2);
+
+// dial a phone number
+phone.dialPhoneNumber("123-456-7890");
