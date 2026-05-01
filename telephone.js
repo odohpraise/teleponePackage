@@ -1,7 +1,7 @@
 class Telephone {
     constructor() {
         this.PhoneNumber = [];
-        this.observer = [];
+        this.observers = [];
     }
 
     addPhoneNumber = (number) => {
@@ -14,14 +14,31 @@ class Telephone {
         console.log(` ${number} has been removed from the phone book.`);
     }
 
+    addObserver = (observer) => {
+        this.observers.push(observer);
+    }
+
+    removeObserver = (observer) => {
+        this.observers = this.observers.filter(obs => obs !== observer);
+    }
+
+    notifyObservers = (number) => {
+        this.observer.forEach(observer => {
+            observer.update(number)
+        })
+    }
     dialPhoneNumber = (number) => {
         if (this.PhoneNumber.includes(number)) {
             console.log(`Dialing ${number}`);
+            this.notifyObservers(number)
         } else {
             console.log("Number not found");
         }
     }
+
 }
+
+
 
 const telephone = new Telephone();
 telephone.addPhoneNumber("123-456-7890");
