@@ -7,6 +7,7 @@ class Telephone {
     addPhoneNumber = (number) => {
         if (!this.PhoneNumber.includes(number)) {
             this.PhoneNumber.push(number);
+            console.log(` ${number} has been added to the phone book.`);
         }
     }
     removeNumber = (number) => {
@@ -41,6 +42,7 @@ class Telephone {
 class IgnoreObserver {
     update(number) {
         console.log(number)
+        console.log(`first observer has been notified `)
     }
 }
 
